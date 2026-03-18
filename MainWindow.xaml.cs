@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace lab5
 {
@@ -23,6 +24,25 @@ namespace lab5
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void but1_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                 string s = txt1.Text;
+                if (string.IsNullOrWhiteSpace(s))
+                {
+                    throw new Exception("Enter one or more words first.");
+                }
+
+                string result = s.FirstTask();
+                txt1.Text = result;
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK);
+            }
+
         }
     }
 }
