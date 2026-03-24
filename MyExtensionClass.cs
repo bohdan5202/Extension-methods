@@ -38,5 +38,17 @@ namespace lab5
             if (str == null) throw new ArgumentNullException(nameof(str));
             return new string(str.Where(c => !"aeuioyAEUIOY".Contains(c)).ToArray());
         }
+
+        public static int[] ThirdTask(this string str)
+        {
+            if (str == null) throw new ArgumentNullException(nameof(str));
+            string[] words = str.Split(' ');
+            int[] counts = new int[words.Length];
+            for(int i = 0; i < words.Length; i++)
+            {
+                counts[i] = words[i].Count(/*c => char.IsLetter(c)*/);
+            }
+            return counts;
+        }
     }
 }

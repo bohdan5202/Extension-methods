@@ -64,6 +64,32 @@ namespace lab5
             }
         }
 
-       
+        private void but3_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string s = txt3.Text;
+                if (string.IsNullOrWhiteSpace(s))
+                {
+                    throw new Exception("Enter one or more words first.");
+                }
+                int[] result = s.ThirdTask();
+                txt3.Text = "[ " + string.Join(", ", result) + " ]";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK);
+            }
+        }
+
+        private void but4_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void but5_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

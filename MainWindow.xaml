@@ -8,6 +8,7 @@
         Title="MainWindow" Height="270" Width="600">
     <Grid>
         <TabControl>
+
             <TabItem Header="Task 1">
                 <Grid Margin="16">
                     <Grid.RowDefinitions>
@@ -17,35 +18,20 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0"
-                   Text="Task 1"
-                   FontSize="20"
-                   FontWeight="SemiBold"/>
-
-                    <TextBlock Grid.Row="1"
-                   Margin="0,6,0,12"
-                   Text="Enter text, then click the button to transform it (even -> UPPER, odd -> lower)."
-                   Foreground="Gray"
-                   TextWrapping="Wrap"/>
+                    <TextBlock Grid.Row="0" Text="Task 1" FontSize="20" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Row="1" Margin="0,6,0,12"
+                               Text="Enter text, then click the button to transform it (even -> UPPER, odd -> lower)."
+                               Foreground="Gray" TextWrapping="Wrap"/>
 
                     <StackPanel Grid.Row="2" Orientation="Horizontal">
                         <TextBlock Text="Input:" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                        <TextBox x:Name="txt1"
-                     Width="260"
-                     Height="28"
-                     VerticalContentAlignment="Center"
-                     TextWrapping="NoWrap"/>
+                        <TextBox x:Name="txt1" Width="260" Height="28"
+                                 VerticalContentAlignment="Center" TextWrapping="NoWrap"/>
                     </StackPanel>
 
-                    <Button Grid.Row="3"
-                x:Name="but1"
-                Content="Up even and lower odd"
-                Width="220"
-                Height="34"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Margin="0,12,0,0"
-                Click="but1_Click"/>
+                    <Button Grid.Row="3" x:Name="but1" Content="Up even and lower odd"
+                            Width="220" Height="34" HorizontalAlignment="Left"
+                            VerticalAlignment="Top" Margin="0,12,0,0" Click="but1_Click"/>
                 </Grid>
             </TabItem>
 
@@ -57,42 +43,102 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0"
-                   Text="Task 2"
-                   FontSize="20"
-                   FontWeight="SemiBold"/>
-                    <TextBlock Grid.Row="1"
-                   Margin="0,6,0,12"
-                   Foreground="Gray"
-                   TextWrapping="Wrap"><Run Text="Enter text, then click the button to transform it ("/><Run Language="pl-pl" Text="remove all vovels"/><Run Text=")."/></TextBlock>
+
+                    <TextBlock Grid.Row="0" Text="Task 2" FontSize="20" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Row="1" Margin="0,6,0,12"
+                               Text="Enter text, then click the button to transform it (remove vovels)."
+                               Foreground="Gray" TextWrapping="Wrap"/>
+
                     <StackPanel Grid.Row="2" Orientation="Horizontal">
                         <TextBlock Text="Input:" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                        <TextBox x:Name="txt2"
-                     Width="260"
-                     Height="28"
-                     VerticalContentAlignment="Center"
-                     TextWrapping="NoWrap"/>
+                        <TextBox x:Name="txt2" Width="260" Height="28"
+                                 VerticalContentAlignment="Center" TextWrapping="NoWrap"/>
                     </StackPanel>
-                    <Button Grid.Row="3"
-                x:Name="but2"
-                Content="Remove vovels"
-                Width="220"
-                Height="34"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Margin="0,12,0,0" Click="but2_Click"
-                />
+
+                    <Button Grid.Row="3" x:Name="but2" Content="Remove Vovels"
+                            Width="220" Height="34" HorizontalAlignment="Left"
+                            VerticalAlignment="Top" Margin="0,12,0,0" Click="but2_Click"/>
                 </Grid>
             </TabItem>
+
             <TabItem Header="Task 3">
-                <Grid></Grid>
+                <Grid Margin="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Task 3" FontSize="20" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Row="1" Margin="0,6,0,12"
+                               Text="Enter text, then click the button to transform it (even -> UPPER, odd -> lower)."
+                               Foreground="Gray" TextWrapping="Wrap"/>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock Text="Input:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBox x:Name="txt3" Width="260" Height="28"
+                                 VerticalContentAlignment="Center" TextWrapping="NoWrap"/>
+                    </StackPanel>
+
+                    <Button Grid.Row="3" x:Name="but3" Content="Up even and lower odd"
+                            Width="220" Height="34" HorizontalAlignment="Left"
+                            VerticalAlignment="Top" Margin="0,12,0,0" Click="but3_Click"/>
+                </Grid>
             </TabItem>
+
             <TabItem Header="Task 4">
-                <Grid></Grid>
+                <Grid Margin="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Task 4" FontSize="20" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Row="1" Margin="0,6,0,12"
+                               Text="Enter text, then click the button to transform it (even -> UPPER, odd -> lower)."
+                               Foreground="Gray" TextWrapping="Wrap"/>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock Text="Input:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBox x:Name="txt4" Width="260" Height="28"
+                                 VerticalContentAlignment="Center" TextWrapping="NoWrap"/>
+                    </StackPanel>
+
+                    <Button Grid.Row="3" x:Name="but4" Content="Up even and lower odd"
+                            Width="220" Height="34" HorizontalAlignment="Left"
+                            VerticalAlignment="Top" Margin="0,12,0,0" Click="but4_Click"/>
+                </Grid>
             </TabItem>
+
             <TabItem Header="Task 5">
-                <Grid></Grid>
+                <Grid Margin="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Task 5" FontSize="20" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Row="1" Margin="0,6,0,12"
+                               Text="Enter text, then click the button to transform it (even -> UPPER, odd -> lower)."
+                               Foreground="Gray" TextWrapping="Wrap"/>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock Text="Input:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBox x:Name="txt5" Width="260" Height="28"
+                                 VerticalContentAlignment="Center" TextWrapping="NoWrap"/>
+                    </StackPanel>
+
+                    <Button Grid.Row="3" x:Name="but5" Content="Up even and lower odd"
+                            Width="220" Height="34" HorizontalAlignment="Left"
+                            VerticalAlignment="Top" Margin="0,12,0,0" Click="but5_Click"/>
+                </Grid>
             </TabItem>
+
         </TabControl>
     </Grid>
 </Window>
