@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:lab5"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="270" Width="600">
     <Grid>
         <TabControl>
             <TabItem Header="Task 1">
@@ -80,8 +80,8 @@
                 Height="34"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Margin="0,12,0,0"
-                Click="but2_Click"/>
+                Margin="0,12,0,0" Click="but2_Click"
+                />
                 </Grid>
             </TabItem>
             <TabItem Header="Task 3">

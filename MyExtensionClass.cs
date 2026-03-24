@@ -22,15 +22,21 @@ namespace lab5
                 for (int j = 0; j < letter.Length; j++)
                 {
                     if (j % 2 == 0)
-                        letter[j] = char.ToUpper(letter[j]);  
+                        letter[j] = char.ToUpper(letter[j]);
                     else
-                        letter[j] = char.ToLower(letter[j]);  
+                        letter[j] = char.ToLower(letter[j]);
                 }
 
-                words[i] = new string(letter); 
+                words[i] = new string(letter);
             }
 
-            return string.Join(" ", words); 
+            return string.Join(" ", words);
+        }
+
+        public static string SecondTask(this string str)
+        {
+            if (str == null) throw new ArgumentNullException(nameof(str));
+            return new string(str.Where(c => !"aeuioyAEUIOY".Contains(c)).ToArray());
         }
     }
 }
