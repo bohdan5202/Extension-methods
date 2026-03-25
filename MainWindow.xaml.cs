@@ -1,19 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace lab5
 {
@@ -62,7 +50,7 @@ namespace lab5
             ProcessTask(txt3, out3, s => "[ " + string.Join(", ", s.ThirdTask()) + " ]");
 
         private void but4_Click(object sender, RoutedEventArgs e) => 
-            ProcessTask(txt4, out4, s => s.FourthTask().ToString());
+            ProcessTask(txt4, out4, s => s.FourthTask().ToString(), applyRegex: true);
 
         private void but5_Click(object sender, RoutedEventArgs e) => 
             ProcessTask(txt5, out5, s => s.FifthTask<char>().ToString(), applyRegex: true);
