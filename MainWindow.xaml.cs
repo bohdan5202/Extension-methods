@@ -84,7 +84,20 @@ namespace lab5
 
         private void but4_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                string s = txt4.Text;
+                if (string.IsNullOrWhiteSpace(s))
+                {
+                    throw new Exception("Enter one or more words first.");
+                }
+                Boolean result = s.FourthTask();
+                txt4.Text = result.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK);
+            }
         }
 
         private void but5_Click(object sender, RoutedEventArgs e)

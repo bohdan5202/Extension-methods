@@ -72,7 +72,7 @@
 
                     <TextBlock Grid.Row="0" Text="Task 3" FontSize="20" FontWeight="SemiBold"/>
                     <TextBlock Grid.Row="1" Margin="0,6,0,12"
-                               Text="Enter text, then click the button to transform it (even -> UPPER, odd -> lower)."
+                               Text="Enter text, then click the button to count lengths('11s d waaw' -> '[3, 1, 4]')."
                                Foreground="Gray" TextWrapping="Wrap"/>
 
                     <StackPanel Grid.Row="2" Orientation="Horizontal">
@@ -81,7 +81,7 @@
                                  VerticalContentAlignment="Center" TextWrapping="NoWrap"/>
                     </StackPanel>
 
-                    <Button Grid.Row="3" x:Name="but3" Content="Up even and lower odd"
+                    <Button Grid.Row="3" x:Name="but3" Content="Count all"
                             Width="220" Height="34" HorizontalAlignment="Left"
                             VerticalAlignment="Top" Margin="0,12,0,0" Click="but3_Click"/>
                 </Grid>
@@ -98,7 +98,7 @@
 
                     <TextBlock Grid.Row="0" Text="Task 4" FontSize="20" FontWeight="SemiBold"/>
                     <TextBlock Grid.Row="1" Margin="0,6,0,12"
-                               Text="Enter text, then click the button to transform it (even -> UPPER, odd -> lower)."
+                               Text="Enter text, then click the button to check if the string is a proper sentence (Hello! -> True, hello. -> False, Hello -> False)."
                                Foreground="Gray" TextWrapping="Wrap"/>
 
                     <StackPanel Grid.Row="2" Orientation="Horizontal">
@@ -107,7 +107,7 @@
                                  VerticalContentAlignment="Center" TextWrapping="NoWrap"/>
                     </StackPanel>
 
-                    <Button Grid.Row="3" x:Name="but4" Content="Up even and lower odd"
+                    <Button Grid.Row="3" x:Name="but4" Content="Check"
                             Width="220" Height="34" HorizontalAlignment="Left"
                             VerticalAlignment="Top" Margin="0,12,0,0" Click="but4_Click"/>
                 </Grid>

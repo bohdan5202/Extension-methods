@@ -44,11 +44,18 @@ namespace lab5
             if (str == null) throw new ArgumentNullException(nameof(str));
             string[] words = str.Split(' ');
             int[] counts = new int[words.Length];
-            for(int i = 0; i < words.Length; i++)
+            for (int i = 0; i < words.Length; i++)
             {
                 counts[i] = words[i].Count(/*c => char.IsLetter(c)*/);
             }
             return counts;
+        }
+        public static bool FourthTask(this string str)
+        {
+            if (!char.IsUpper(str[0])) return false;
+            char last = str[str.Length - 1];
+            if (last != '.' && last != '!' && last != '?') return false;
+            return !str.Substring(0, str.Length - 1).Any(c => c == '.' || c == '!' || c == '?');
         }
     }
 }
