@@ -38,7 +38,7 @@ namespace lab5
                 }
 
                 string result = s.FirstTask();
-                txt1.Text = result;
+                out1.Text = result;
             }
             catch (Exception ex) {
                 MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK);
@@ -57,7 +57,7 @@ namespace lab5
                 }
 
                 string result = s.SecondTask();
-                txt2.Text = result;
+                out2.Text = result;
             }
             catch (Exception ex)
             {
@@ -75,7 +75,7 @@ namespace lab5
                     throw new Exception("Enter one or more words first.");
                 }
                 int[] result = s.ThirdTask();
-                txt3.Text = "[ " + string.Join(", ", result) + " ]";
+                out3.Text = "[ " + string.Join(", ", result) + " ]";
             }
             catch (Exception ex)
             {
@@ -93,7 +93,7 @@ namespace lab5
                     throw new Exception("Enter one or more words first.");
                 }
                 Boolean result = s.FourthTask();
-                txt4.Text = result.ToString();
+                out4.Text = result.ToString();
             }
             catch (Exception ex)
             {
@@ -113,12 +113,42 @@ namespace lab5
                     throw new Exception("Enter one or more words first.");
                 }
                 Char result = s.FifthTask<char>();
-                txt5.Text = result.ToString();
+                out5.Text = result.ToString();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK);
             }
+        }
+
+        private void clr1_Click(object sender, RoutedEventArgs e)
+        {
+            txt1.Clear();
+            out1.Clear();
+        }
+
+        private void clr2_Click(object sender, RoutedEventArgs e)
+        {
+            txt2.Clear();
+            out2.Clear();
+        }
+
+        private void clr3_Click(object sender, RoutedEventArgs e)
+        {
+            txt3.Clear();
+            out3.Clear();
+        }
+
+        private void clr4_Click(object sender, RoutedEventArgs e)
+        {
+            txt4.Clear();
+            out4.Clear();
+        }
+
+        private void clr5_Click(object sender, RoutedEventArgs e)
+        {
+            txt5.Clear();
+            out5.Clear();
         }
     }
 }

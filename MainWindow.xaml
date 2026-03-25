@@ -5,138 +5,739 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:lab5"
         mc:Ignorable="d"
-        Title="Extension methods" Height="270" Width="600">
+        Title="Extension Methods Lab"
+        MinWidth="480" MinHeight="360"
+        Height="540" Width="720"
+        Background="#0F1117">
+
+    <Window.Resources>
+
+        <!-- ===== COLOR PALETTE ===== -->
+        <Color x:Key="BgDeep">#0F1117</Color>
+        <Color x:Key="BgPanel">#181C27</Color>
+        <Color x:Key="BgCard">#1E2333</Color>
+        <Color x:Key="BgInput">#252B3B</Color>
+        <Color x:Key="AccentBlue">#4F8EF7</Color>
+        <Color x:Key="AccentGlow">#2563EB</Color>
+        <Color x:Key="TextPrimary">#E8ECF4</Color>
+        <Color x:Key="TextSecondary">#8A92A8</Color>
+        <Color x:Key="TextMuted">#4A5068</Color>
+        <Color x:Key="BorderSubtle">#2A3048</Color>
+        <Color x:Key="BorderActive">#4F8EF7</Color>
+        <Color x:Key="TagColor1">#3B82F6</Color>
+        <Color x:Key="TagColor2">#8B5CF6</Color>
+        <Color x:Key="TagColor3">#10B981</Color>
+        <Color x:Key="TagColor4">#F59E0B</Color>
+        <Color x:Key="TagColor5">#EF4444</Color>
+
+        <SolidColorBrush x:Key="BrBgDeep"    Color="{StaticResource BgDeep}"/>
+        <SolidColorBrush x:Key="BrBgPanel"   Color="{StaticResource BgPanel}"/>
+        <SolidColorBrush x:Key="BrBgCard"    Color="{StaticResource BgCard}"/>
+        <SolidColorBrush x:Key="BrBgInput"   Color="{StaticResource BgInput}"/>
+        <SolidColorBrush x:Key="BrAccent"    Color="{StaticResource AccentBlue}"/>
+        <SolidColorBrush x:Key="BrTextPrim"  Color="{StaticResource TextPrimary}"/>
+        <SolidColorBrush x:Key="BrTextSec"   Color="{StaticResource TextSecondary}"/>
+        <SolidColorBrush x:Key="BrTextMuted" Color="{StaticResource TextMuted}"/>
+        <SolidColorBrush x:Key="BrBorderSub" Color="{StaticResource BorderSubtle}"/>
+        <SolidColorBrush x:Key="BrBorderAct" Color="{StaticResource BorderActive}"/>
+
+        <!-- ===== TYPOGRAPHY ===== -->
+        <!-- Uses Segoe UI Variable / Segoe UI as fallbacks, giving a clean modern look -->
+
+        <!-- ===== TEXTBOX STYLE ===== -->
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="Background"            Value="{StaticResource BrBgInput}"/>
+            <Setter Property="Foreground"            Value="{StaticResource BrTextPrim}"/>
+            <Setter Property="CaretBrush"            Value="{StaticResource BrAccent}"/>
+            <Setter Property="BorderBrush"           Value="{StaticResource BrBorderSub}"/>
+            <Setter Property="BorderThickness"       Value="1"/>
+            <Setter Property="Padding"               Value="12,0"/>
+            <Setter Property="Height"                Value="38"/>
+            <Setter Property="FontSize"              Value="13.5"/>
+            <Setter Property="FontFamily"            Value="Segoe UI Variable Text, Segoe UI"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="SelectionBrush"        Value="{StaticResource BrAccent}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Margin="{TemplateBinding Padding}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Focusable="False"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush"
+                                        Value="#3A4260"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush"
+                                        Value="{StaticResource BrBorderAct}"/>
+                                <Setter TargetName="border" Property="Background"
+                                        Value="#2A3048"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ===== RESULT TEXTBOX (read-only output) ===== -->
+        <Style x:Key="ResultTextBox" TargetType="TextBox" BasedOn="{StaticResource ModernTextBox}">
+            <Setter Property="IsReadOnly"      Value="True"/>
+            <Setter Property="Background"      Value="#141824"/>
+            <Setter Property="Foreground"      Value="#7DD3FC"/>
+            <Setter Property="BorderBrush"     Value="#1E2A40"/>
+            <Setter Property="FontFamily"      Value="Cascadia Code, Consolas, Courier New"/>
+            <Setter Property="FontSize"        Value="13"/>
+        </Style>
+
+        <!-- ===== PRIMARY BUTTON ===== -->
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Foreground"       Value="White"/>
+            <Setter Property="FontFamily"       Value="Segoe UI Variable Text, Segoe UI"/>
+            <Setter Property="FontSize"         Value="13"/>
+            <Setter Property="FontWeight"       Value="SemiBold"/>
+            <Setter Property="Height"           Value="38"/>
+            <Setter Property="Padding"          Value="20,0"/>
+            <Setter Property="Cursor"           Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="root"
+                                CornerRadius="8"
+                                SnapsToDevicePixels="True">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#3B6CF7" Offset="0"/>
+                                    <GradientStop Color="#5B8EFF" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Border x:Name="highlight"
+                                    CornerRadius="8"
+                                    Background="Transparent">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  Margin="{TemplateBinding Padding}"/>
+                            </Border>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="root" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                            <GradientStop Color="#4F7FFF" Offset="0"/>
+                                            <GradientStop Color="#70A0FF" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="highlight" Property="Background"
+                                        Value="#15FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="root" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                            <GradientStop Color="#2855D4" Offset="0"/>
+                                            <GradientStop Color="#3F6EDD" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="highlight" Property="Background"
+                                        Value="Transparent"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="root" Property="Opacity" Value="0.4"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ===== CLEAR BUTTON ===== -->
+        <Style x:Key="ClearButton" TargetType="Button">
+            <Setter Property="Foreground"    Value="#8A92A8"/>
+            <Setter Property="FontFamily"    Value="Segoe UI Variable Text, Segoe UI"/>
+            <Setter Property="FontSize"      Value="13"/>
+            <Setter Property="FontWeight"    Value="SemiBold"/>
+            <Setter Property="Height"        Value="38"/>
+            <Setter Property="Padding"       Value="18,0"/>
+            <Setter Property="Cursor"        Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="root"
+                                Background="#1A1F2E"
+                                BorderBrush="#2A3048"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="root" Property="Background"  Value="#22293C"/>
+                                <Setter TargetName="root" Property="BorderBrush" Value="#3A4260"/>
+                                <Setter Property="Foreground" Value="#C0C8DC"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="root" Property="Background"  Value="#141824"/>
+                                <Setter TargetName="root" Property="BorderBrush" Value="#4F8EF7"/>
+                                <Setter Property="Foreground" Value="#4F8EF7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ===== TABCONTROL STYLE ===== -->
+        <Style x:Key="ModernTabControl" TargetType="TabControl">
+            <Setter Property="Background"    Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding"       Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabControl">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Tab header strip -->
+                            <Border Grid.Row="0"
+                                    Background="#181C27"
+                                    BorderBrush="#1E2333"
+                                    BorderThickness="0,0,0,1"
+                                    Padding="16,0">
+                                <TabPanel IsItemsHost="True"
+                                          Background="Transparent"/>
+                            </Border>
+
+                            <!-- Content area -->
+                            <Border Grid.Row="1"
+                                    Background="Transparent">
+                                <ContentPresenter ContentSource="SelectedContent"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ===== TABITEM STYLE ===== -->
+        <Style x:Key="ModernTabItem" TargetType="TabItem">
+            <Setter Property="Foreground"     Value="{StaticResource BrTextMuted}"/>
+            <Setter Property="FontFamily"     Value="Segoe UI Variable Text, Segoe UI"/>
+            <Setter Property="FontSize"       Value="12.5"/>
+            <Setter Property="FontWeight"     Value="Medium"/>
+            <Setter Property="Padding"        Value="14,12"/>
+            <Setter Property="Cursor"         Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Grid>
+                            <Border x:Name="tabBorder"
+                                    Background="Transparent"
+                                    Padding="{TemplateBinding Padding}">
+                                <ContentPresenter ContentSource="Header"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"/>
+                            </Border>
+                            <!-- Active underline indicator -->
+                            <Border x:Name="indicator"
+                                    Height="2"
+                                    VerticalAlignment="Bottom"
+                                    CornerRadius="1"
+                                    Background="{StaticResource BrAccent}"
+                                    Margin="12,0"
+                                    Opacity="0"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource BrTextSec}"/>
+                                <Setter TargetName="indicator" Property="Opacity" Value="0.4"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource BrTextPrim}"/>
+                                <Setter TargetName="indicator" Property="Opacity" Value="1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ===== LABEL / BADGE ===== -->
+        <Style x:Key="BadgeText" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI Variable Text, Segoe UI"/>
+            <Setter Property="FontSize"   Value="11"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#8A92A8"/>
+        </Style>
+
+        <Style x:Key="HeadingText" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI Variable Display, Segoe UI"/>
+            <Setter Property="FontSize"   Value="17"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource BrTextPrim}"/>
+        </Style>
+
+        <Style x:Key="DescText" TargetType="TextBlock">
+            <Setter Property="FontFamily"   Value="Segoe UI Variable Text, Segoe UI"/>
+            <Setter Property="FontSize"     Value="12.5"/>
+            <Setter Property="Foreground"   Value="{StaticResource BrTextSec}"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="LineHeight"   Value="19"/>
+        </Style>
+
+        <Style x:Key="InputLabel" TargetType="TextBlock">
+            <Setter Property="FontFamily"  Value="Segoe UI Variable Text, Segoe UI"/>
+            <Setter Property="FontSize"    Value="11.5"/>
+            <Setter Property="FontWeight"  Value="SemiBold"/>
+            <Setter Property="Foreground"  Value="{StaticResource BrTextSec}"/>
+            <Setter Property="Margin"      Value="0,0,0,5"/>
+        </Style>
+
+    </Window.Resources>
+
+    <!-- ===== ROOT LAYOUT ===== -->
     <Grid>
-        <TabControl>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- App header bar -->
+            <RowDefinition Height="*"/>
+            <!-- Tab content    -->
+        </Grid.RowDefinitions>
 
-            <TabItem Header="Task 1">
-                <Grid Margin="16">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+        <!-- ══════════════════════════════════════════════════════
+             APP HEADER
+        ═══════════════════════════════════════════════════════ -->
+        <Border Grid.Row="0"
+                Background="#12151F"
+                BorderBrush="#1C2136"
+                BorderThickness="0,0,0,1"
+                Padding="20,14">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Task 1" FontSize="20" FontWeight="SemiBold"/>
-                    <TextBlock Grid.Row="1" Margin="0,6,0,12"
-                               Text="Enter text, then click the button to transform it (even -> UPPER, odd -> lower)."
-                               Foreground="Gray" TextWrapping="Wrap"/>
-
-                    <StackPanel Grid.Row="2" Orientation="Horizontal">
-                        <TextBlock Text="Input:" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                        <TextBox x:Name="txt1" Width="260" Height="28"
-                                 VerticalContentAlignment="Center" TextWrapping="NoWrap"/>
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <!-- Icon pill -->
+                    <Border CornerRadius="6" Padding="7,5" Margin="0,0,10,0">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#1E3A8A" Offset="0"/>
+                                <GradientStop Color="#3B82F6" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <TextBlock Text="⚡" FontSize="13"/>
+                    </Border>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="Extension Methods Lab"
+                                   FontFamily="Segoe UI Variable Display, Segoe UI"
+                                   FontSize="14" FontWeight="Bold"
+                                   Foreground="{StaticResource BrTextPrim}"/>
+                        <TextBlock Text="C# String Utilities Playground"
+                                   FontFamily="Segoe UI Variable Text, Segoe UI"
+                                   FontSize="11" Foreground="{StaticResource BrTextMuted}"/>
                     </StackPanel>
+                </StackPanel>
 
-                    <Button Grid.Row="3" x:Name="but1" Content="Up even and lower odd"
-                            Width="220" Height="34" HorizontalAlignment="Left"
-                            VerticalAlignment="Top" Margin="0,12,0,0" Click="but1_Click"/>
-                </Grid>
+                <Border Grid.Column="1"
+                        Background="#1A2540"
+                        BorderBrush="#2A3A60"
+                        BorderThickness="1"
+                        CornerRadius="6"
+                        Padding="10,5"
+                        VerticalAlignment="Center">
+                    <TextBlock Text="5 Tasks"
+                               FontFamily="Segoe UI Variable Text, Segoe UI"
+                               FontSize="11" FontWeight="SemiBold"
+                               Foreground="{StaticResource BrAccent}"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- ══════════════════════════════════════════════════════
+             MAIN TAB CONTROL
+        ═══════════════════════════════════════════════════════ -->
+        <TabControl Grid.Row="1"
+                    Style="{StaticResource ModernTabControl}">
+
+            <!-- ─────────────────────────────────────────────────
+                 TASK 1 — Even UPPER / Odd lower
+            ──────────────────────────────────────────────────── -->
+            <TabItem Header="Task 1" Style="{StaticResource ModernTabItem}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <Grid Margin="24,20" MaxWidth="680" HorizontalAlignment="Left">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <!-- badge + heading -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- description    -->
+                            <RowDefinition Height="16"/>
+                            <!-- spacer          -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- input row       -->
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="Auto"/>
+                            <!-- output row      -->
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                            <!-- button row      -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Heading -->
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+                            <Border Background="#1D3461" CornerRadius="4" Padding="7,3" Margin="0,0,10,0">
+                                <TextBlock Text="01" Style="{StaticResource BadgeText}"
+                                           Foreground="{StaticResource BrAccent}"/>
+                            </Border>
+                            <TextBlock Text="Case Alternation" Style="{StaticResource HeadingText}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- Description -->
+                        <TextBlock Grid.Row="1"
+                                   Style="{StaticResource DescText}"
+                                   Text="Transforms a string so that characters at even positions (0, 2, 4…) become UPPERCASE and characters at odd positions (1, 3, 5…) become lowercase. Spaces and punctuation are preserved at their index."/>
+
+                        <!-- Input -->
+                        <Grid Grid.Row="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="INPUT TEXT" Style="{StaticResource InputLabel}"/>
+                            <TextBox   Grid.Row="1" x:Name="txt1"
+                                       Style="{StaticResource ModernTextBox}"
+                                       HorizontalAlignment="Stretch"
+                                       ToolTip="Type any string here"/>
+                        </Grid>
+
+                        <!-- Output -->
+                        <Grid Grid.Row="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="RESULT" Style="{StaticResource InputLabel}"/>
+                            <TextBox   Grid.Row="1" x:Name="out1"
+                                       Style="{StaticResource ResultTextBox}"
+                                       HorizontalAlignment="Stretch"
+                                       ToolTip="Output appears here"/>
+                        </Grid>
+
+                        <!-- Button -->
+                        <StackPanel Grid.Row="7" Orientation="Horizontal">
+                            <Button x:Name="but1"
+                                    Content="▶  Transform Case"
+                                    Style="{StaticResource PrimaryButton}"
+                                    MinWidth="180"
+                                    Click="but1_Click"/>
+                            <Button x:Name="clr1"
+                                    Content="✕  Clear"
+                                    Style="{StaticResource ClearButton}"
+                                    MinWidth="100"
+                                    Margin="10,0,0,0"
+                                    Click="clr1_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
 
-            <TabItem Header="Task 2">
-                <Grid Margin="16">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+            <!-- ─────────────────────────────────────────────────
+                 TASK 2 — Remove Vowels
+            ──────────────────────────────────────────────────── -->
+            <TabItem Header="Task 2" Style="{StaticResource ModernTabItem}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <Grid Margin="24,20" MaxWidth="680" HorizontalAlignment="Left">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Task 2" FontSize="20" FontWeight="SemiBold"/>
-                    <TextBlock Grid.Row="1" Margin="0,6,0,12"
-                               Text="Enter text, then click the button to transform it (remove vovels)."
-                               Foreground="Gray" TextWrapping="Wrap"/>
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+                            <Border Background="#2D1B69" CornerRadius="4" Padding="7,3" Margin="0,0,10,0">
+                                <TextBlock Text="02" Style="{StaticResource BadgeText}"
+                                           Foreground="#A78BFA"/>
+                            </Border>
+                            <TextBlock Text="Vowel Removal" Style="{StaticResource HeadingText}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Grid.Row="2" Orientation="Horizontal">
-                        <TextBlock Text="Input:" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                        <TextBox x:Name="txt2" Width="260" Height="28"
-                                 VerticalContentAlignment="Center" TextWrapping="NoWrap"/>
-                    </StackPanel>
+                        <TextBlock Grid.Row="1"
+                                   Style="{StaticResource DescText}"
+                                   Text="Strips all vowel characters (a, e, i, o, u — both upper and lower case) from the input string, returning only consonants, digits, spaces, and symbols."/>
 
-                    <Button Grid.Row="3" x:Name="but2" Content="Remove Vovels"
-                            Width="220" Height="34" HorizontalAlignment="Left"
-                            VerticalAlignment="Top" Margin="0,12,0,0" Click="but2_Click"/>
-                </Grid>
+                        <Grid Grid.Row="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="INPUT TEXT" Style="{StaticResource InputLabel}"/>
+                            <TextBox   Grid.Row="1" x:Name="txt2"
+                                       Style="{StaticResource ModernTextBox}"
+                                       HorizontalAlignment="Stretch"/>
+                        </Grid>
+
+                        <Grid Grid.Row="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="RESULT" Style="{StaticResource InputLabel}"/>
+                            <TextBox   Grid.Row="1" x:Name="out2"
+                                       Style="{StaticResource ResultTextBox}"
+                                       HorizontalAlignment="Stretch"/>
+                        </Grid>
+
+                        <StackPanel Grid.Row="7" Orientation="Horizontal">
+                            <Button x:Name="but2"
+                                    Content="▶  Remove Vowels"
+                                    Style="{StaticResource PrimaryButton}"
+                                    MinWidth="180"
+                                    Click="but2_Click"/>
+                            <Button x:Name="clr2"
+                                    Content="✕  Clear"
+                                    Style="{StaticResource ClearButton}"
+                                    MinWidth="100"
+                                    Margin="10,0,0,0"
+                                    Click="clr2_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
 
-            <TabItem Header="Task 3">
-                <Grid Margin="16">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+            <!-- ─────────────────────────────────────────────────
+                 TASK 3 — Word Length Counter
+            ──────────────────────────────────────────────────── -->
+            <TabItem Header="Task 3" Style="{StaticResource ModernTabItem}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <Grid Margin="24,20" MaxWidth="680" HorizontalAlignment="Left">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Task 3" FontSize="20" FontWeight="SemiBold"/>
-                    <TextBlock Grid.Row="1" Margin="0,6,0,12"
-                               Text="Enter text, then click the button to count lengths('11s d waaw' -> '[3, 1, 4]')."
-                               Foreground="Gray" TextWrapping="Wrap"/>
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+                            <Border Background="#064E3B" CornerRadius="4" Padding="7,3" Margin="0,0,10,0">
+                                <TextBlock Text="03" Style="{StaticResource BadgeText}"
+                                           Foreground="#34D399"/>
+                            </Border>
+                            <TextBlock Text="Word Length Counter" Style="{StaticResource HeadingText}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Grid.Row="2" Orientation="Horizontal">
-                        <TextBlock Text="Input:" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                        <TextBox x:Name="txt3" Width="260" Height="28"
-                                 VerticalContentAlignment="Center" TextWrapping="NoWrap"/>
-                    </StackPanel>
+                        <TextBlock Grid.Row="1"
+                                   Style="{StaticResource DescText}"
+                                   Text="Splits the input string on whitespace and returns a list of each word's character count. Example: &quot;11s d waaw&quot; → [3, 1, 4]"/>
 
-                    <Button Grid.Row="3" x:Name="but3" Content="Count all"
-                            Width="220" Height="34" HorizontalAlignment="Left"
-                            VerticalAlignment="Top" Margin="0,12,0,0" Click="but3_Click"/>
-                </Grid>
+                        <Grid Grid.Row="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="INPUT TEXT" Style="{StaticResource InputLabel}"/>
+                            <TextBox   Grid.Row="1" x:Name="txt3"
+                                       Style="{StaticResource ModernTextBox}"
+                                       HorizontalAlignment="Stretch"/>
+                        </Grid>
+
+                        <Grid Grid.Row="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="WORD LENGTHS" Style="{StaticResource InputLabel}"/>
+                            <TextBox   Grid.Row="1" x:Name="out3"
+                                       Style="{StaticResource ResultTextBox}"
+                                       HorizontalAlignment="Stretch"/>
+                        </Grid>
+
+                        <StackPanel Grid.Row="7" Orientation="Horizontal">
+                            <Button x:Name="but3"
+                                    Content="▶  Count Lengths"
+                                    Style="{StaticResource PrimaryButton}"
+                                    MinWidth="180"
+                                    Click="but3_Click"/>
+                            <Button x:Name="clr3"
+                                    Content="✕  Clear"
+                                    Style="{StaticResource ClearButton}"
+                                    MinWidth="100"
+                                    Margin="10,0,0,0"
+                                    Click="clr3_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
 
-            <TabItem Header="Task 4">
-                <Grid Margin="16">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+            <!-- ─────────────────────────────────────────────────
+                 TASK 4 — Proper Sentence Checker
+            ──────────────────────────────────────────────────── -->
+            <TabItem Header="Task 4" Style="{StaticResource ModernTabItem}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <Grid Margin="24,20" MaxWidth="680" HorizontalAlignment="Left">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Task 4" FontSize="20" FontWeight="SemiBold"/>
-                    <TextBlock Grid.Row="1" Margin="0,6,0,12"
-                               Text="Enter text, then click the button to check if the string is a proper sentence (Hello! -> True, hello. -> False, Hello -> False)."
-                               Foreground="Gray" TextWrapping="Wrap"/>
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+                            <Border Background="#451A03" CornerRadius="4" Padding="7,3" Margin="0,0,10,0">
+                                <TextBlock Text="04" Style="{StaticResource BadgeText}"
+                                           Foreground="#FCD34D"/>
+                            </Border>
+                            <TextBlock Text="Sentence Validator" Style="{StaticResource HeadingText}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Grid.Row="2" Orientation="Horizontal">
-                        <TextBlock Text="Input:" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                        <TextBox x:Name="txt4" Width="260" Height="28"
-                                 VerticalContentAlignment="Center" TextWrapping="NoWrap"/>
-                    </StackPanel>
+                        <TextBlock Grid.Row="1"
+                                   Style="{StaticResource DescText}"
+                                   Text="Checks whether the input is a properly formed sentence: must start with a capital letter AND end with a sentence-terminating punctuation mark (. ! ?). Returns True or False.&#x0a;Examples: &quot;Hello!&quot; → True   |   &quot;hello.&quot; → False   |   &quot;Hello&quot; → False"/>
 
-                    <Button Grid.Row="3" x:Name="but4" Content="Check"
-                            Width="220" Height="34" HorizontalAlignment="Left"
-                            VerticalAlignment="Top" Margin="0,12,0,0" Click="but4_Click"/>
-                </Grid>
+                        <Grid Grid.Row="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="INPUT TEXT" Style="{StaticResource InputLabel}"/>
+                            <TextBox   Grid.Row="1" x:Name="txt4"
+                                       Style="{StaticResource ModernTextBox}"
+                                       HorizontalAlignment="Stretch"/>
+                        </Grid>
+
+                        <Grid Grid.Row="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="VERDICT" Style="{StaticResource InputLabel}"/>
+                            <TextBox   Grid.Row="1" x:Name="out4"
+                                       Style="{StaticResource ResultTextBox}"
+                                       HorizontalAlignment="Stretch"/>
+                        </Grid>
+
+                        <StackPanel Grid.Row="7" Orientation="Horizontal">
+                            <Button x:Name="but4"
+                                    Content="▶  Validate Sentence"
+                                    Style="{StaticResource PrimaryButton}"
+                                    MinWidth="180"
+                                    Click="but4_Click"/>
+                            <Button x:Name="clr4"
+                                    Content="✕  Clear"
+                                    Style="{StaticResource ClearButton}"
+                                    MinWidth="100"
+                                    Margin="10,0,0,0"
+                                    Click="clr4_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
 
-            <TabItem Header="Task 5">
-                <Grid Margin="16">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+            <!-- ─────────────────────────────────────────────────
+                 TASK 5 — Most Frequent Character
+            ──────────────────────────────────────────────────── -->
+            <TabItem Header="Task 5" Style="{StaticResource ModernTabItem}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <Grid Margin="24,20" MaxWidth="680" HorizontalAlignment="Left">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Task 5" FontSize="20" FontWeight="SemiBold"/>
-                    <TextBlock Grid.Row="1" Margin="0,6,0,12"
-                               Text="Enter text, then click the button to calculate most frequent element (Hello -> l)."
-                               Foreground="Gray" TextWrapping="Wrap"/>
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+                            <Border Background="#450A0A" CornerRadius="4" Padding="7,3" Margin="0,0,10,0">
+                                <TextBlock Text="05" Style="{StaticResource BadgeText}"
+                                           Foreground="#F87171"/>
+                            </Border>
+                            <TextBlock Text="Frequency Finder" Style="{StaticResource HeadingText}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
 
-                    <StackPanel Grid.Row="2" Orientation="Horizontal">
-                        <TextBlock Text="Input:" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                        <TextBox x:Name="txt5" Width="260" Height="28"
-                                 VerticalContentAlignment="Center" TextWrapping="NoWrap"/>
-                    </StackPanel>
+                        <TextBlock Grid.Row="1"
+                                   Style="{StaticResource DescText}"
+                                   Text="Finds and returns the character that appears most frequently in the input string. In case of a tie, the first character with the highest count (in order of appearance) is returned. Example: &quot;Hello&quot; → l"/>
 
-                    <Button Grid.Row="3" x:Name="but5" Content="Calculate"
-                            Width="220" Height="34" HorizontalAlignment="Left"
-                            VerticalAlignment="Top" Margin="0,12,0,0" Click="but5_Click"/>
-                </Grid>
+                        <Grid Grid.Row="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="INPUT TEXT" Style="{StaticResource InputLabel}"/>
+                            <TextBox   Grid.Row="1" x:Name="txt5"
+                                       Style="{StaticResource ModernTextBox}"
+                                       HorizontalAlignment="Stretch"/>
+                        </Grid>
+
+                        <Grid Grid.Row="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="MOST FREQUENT CHARACTER" Style="{StaticResource InputLabel}"/>
+                            <TextBox   Grid.Row="1" x:Name="out5"
+                                       Style="{StaticResource ResultTextBox}"
+                                       HorizontalAlignment="Stretch"/>
+                        </Grid>
+
+                        <StackPanel Grid.Row="7" Orientation="Horizontal">
+                            <Button x:Name="but5"
+                                    Content="▶  Find Most Frequent"
+                                    Style="{StaticResource PrimaryButton}"
+                                    MinWidth="180"
+                                    Click="but5_Click"/>
+                            <Button x:Name="clr5"
+                                    Content="✕  Clear"
+                                    Style="{StaticResource ClearButton}"
+                                    MinWidth="100"
+                                    Margin="10,0,0,0"
+                                    Click="clr5_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
 
         </TabControl>
