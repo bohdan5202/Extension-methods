@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,37 +27,24 @@ namespace lab5
             InitializeComponent();
         }
 
-        private void but1_Click(object sender, RoutedEventArgs e)
+        private void ProcessTask(TextBox inputTxt, TextBox outputTxt, Func<string, string> taskLogic, bool applyRegex = false)
         {
             try
             {
-                 string s = txt1.Text;
+                string s = inputTxt.Text;
+                
+                if (applyRegex)
+                {
+                    s = s.Trim();
+                    s = Regex.Replace(s, @"\s+", " ");
+                }
+
                 if (string.IsNullOrWhiteSpace(s))
                 {
                     throw new Exception("Enter one or more words first.");
                 }
 
-                string result = s.FirstTask();
-                out1.Text = result;
-            }
-            catch (Exception ex) {
-                MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK);
-            }
-
-        }
-
-        private void but2_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                string s = txt2.Text;
-                if (string.IsNullOrWhiteSpace(s))
-                {
-                    throw new Exception("Enter one or more words first.");
-                }
-
-                string result = s.SecondTask();
-                out2.Text = result;
+                outputTxt.Text = taskLogic(s);
             }
             catch (Exception ex)
             {
@@ -65,90 +52,31 @@ namespace lab5
             }
         }
 
-        private void but3_Click(object sender, RoutedEventArgs e)
+        private void but1_Click(object sender, RoutedEventArgs e) => 
+            ProcessTask(txt1, out1, s => s.FirstTask());
+
+        private void but2_Click(object sender, RoutedEventArgs e) => 
+            ProcessTask(txt2, out2, s => s.SecondTask());
+
+        private void but3_Click(object sender, RoutedEventArgs e) => 
+            ProcessTask(txt3, out3, s => "[ " + string.Join(", ", s.ThirdTask()) + " ]");
+
+        private void but4_Click(object sender, RoutedEventArgs e) => 
+            ProcessTask(txt4, out4, s => s.FourthTask().ToString());
+
+        private void but5_Click(object sender, RoutedEventArgs e) => 
+            ProcessTask(txt5, out5, s => s.FifthTask<char>().ToString(), applyRegex: true);
+
+        private void ClearFields(TextBox inputTxt, TextBox outputTxt)
         {
-            try
-            {
-                string s = txt3.Text;
-                if (string.IsNullOrWhiteSpace(s))
-                {
-                    throw new Exception("Enter one or more words first.");
-                }
-                int[] result = s.ThirdTask();
-                out3.Text = "[ " + string.Join(", ", result) + " ]";
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK);
-            }
+            inputTxt.Clear();
+            outputTxt.Clear();
         }
 
-        private void but4_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                string s = txt4.Text;
-                if (string.IsNullOrWhiteSpace(s))
-                {
-                    throw new Exception("Enter one or more words first.");
-                }
-                Boolean result = s.FourthTask();
-                out4.Text = result.ToString();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK);
-            }
-        }
-
-        private void but5_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                string s = txt5.Text.Trim();
-                s = Regex.Replace(s, @"\s+", " ");
-
-                if (string.IsNullOrWhiteSpace(s))
-                {
-                    throw new Exception("Enter one or more words first.");
-                }
-                Char result = s.FifthTask<char>();
-                out5.Text = result.ToString();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK);
-            }
-        }
-
-        private void clr1_Click(object sender, RoutedEventArgs e)
-        {
-            txt1.Clear();
-            out1.Clear();
-        }
-
-        private void clr2_Click(object sender, RoutedEventArgs e)
-        {
-            txt2.Clear();
-            out2.Clear();
-        }
-
-        private void clr3_Click(object sender, RoutedEventArgs e)
-        {
-            txt3.Clear();
-            out3.Clear();
-        }
-
-        private void clr4_Click(object sender, RoutedEventArgs e)
-        {
-            txt4.Clear();
-            out4.Clear();
-        }
-
-        private void clr5_Click(object sender, RoutedEventArgs e)
-        {
-            txt5.Clear();
-            out5.Clear();
-        }
+        private void clr1_Click(object sender, RoutedEventArgs e) => ClearFields(txt1, out1);
+        private void clr2_Click(object sender, RoutedEventArgs e) => ClearFields(txt2, out2);
+        private void clr3_Click(object sender, RoutedEventArgs e) => ClearFields(txt3, out3);
+        private void clr4_Click(object sender, RoutedEventArgs e) => ClearFields(txt4, out4);
+        private void clr5_Click(object sender, RoutedEventArgs e) => ClearFields(txt5, out5);
     }
 }
