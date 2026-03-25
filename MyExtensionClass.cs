@@ -42,7 +42,10 @@ namespace lab5
         public static int[] ThirdTask(this string str)
         {
             if (string.IsNullOrEmpty(str)) return new int[0];
-            string[] words = str.Split(' ');
+            
+            // Remove empty entries so consecutive spaces aren't treated as empty words
+            string[] words = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            
             int[] counts = new int[words.Length];
             for (int i = 0; i < words.Length; i++)
             {
