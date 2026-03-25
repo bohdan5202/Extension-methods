@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:lab5"
         mc:Ignorable="d"
-        Title="MainWindow" Height="270" Width="600">
+        Title="Extension methods" Height="270" Width="600">
     <Grid>
         <TabControl>
 
@@ -124,7 +124,7 @@
 
                     <TextBlock Grid.Row="0" Text="Task 5" FontSize="20" FontWeight="SemiBold"/>
                     <TextBlock Grid.Row="1" Margin="0,6,0,12"
-                               Text="Enter text, then click the button to transform it (even -> UPPER, odd -> lower)."
+                               Text="Enter text, then click the button to calculate most frequent element (Hello -> l)."
                                Foreground="Gray" TextWrapping="Wrap"/>
 
                     <StackPanel Grid.Row="2" Orientation="Horizontal">
@@ -133,7 +133,7 @@
                                  VerticalContentAlignment="Center" TextWrapping="NoWrap"/>
                     </StackPanel>
 
-                    <Button Grid.Row="3" x:Name="but5" Content="Up even and lower odd"
+                    <Button Grid.Row="3" x:Name="but5" Content="Calculate"
                             Width="220" Height="34" HorizontalAlignment="Left"
                             VerticalAlignment="Top" Margin="0,12,0,0" Click="but5_Click"/>
                 </Grid>

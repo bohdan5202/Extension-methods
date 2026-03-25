@@ -53,9 +53,15 @@ namespace lab5
         public static bool FourthTask(this string str)
         {
             if (!char.IsUpper(str[0])) return false;
+            str = str.Trim();
             char last = str[str.Length - 1];
             if (last != '.' && last != '!' && last != '?') return false;
             return !str.Substring(0, str.Length - 1).Any(c => c == '.' || c == '!' || c == '?');
+        }
+
+        public static T FifthTask<T>(this IEnumerable<T> str)
+        {
+            return str.GroupBy(x => x).OrderByDescending(g => g.Count()).First().Key;
         }
     }
 }

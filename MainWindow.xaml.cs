@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -102,7 +103,22 @@ namespace lab5
 
         private void but5_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                string s = txt5.Text.Trim();
+                s = Regex.Replace(s, @"\s+", " ");
 
+                if (string.IsNullOrWhiteSpace(s))
+                {
+                    throw new Exception("Enter one or more words first.");
+                }
+                Char result = s.FifthTask<char>();
+                txt5.Text = result.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK);
+            }
         }
     }
 }
